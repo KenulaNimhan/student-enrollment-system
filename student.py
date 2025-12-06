@@ -7,7 +7,7 @@ class Student:
 
     # define constructor
     def __init__(self, name, age=0, email="", password=""):
-        self.studentId = ""
+        self.studentId = None
         self.name = name
         self.age = age
         self.email = email
