@@ -11,7 +11,6 @@ load_dotenv()
 conn = connect(getenv("SQL_CONNECTION_STRING"))
 cursor = conn.cursor()
 
-
 # DATABASE METHODS
 
     # CREATE METHODS
@@ -32,6 +31,13 @@ VALUES ('{student.name}', {student.age}, '{student.email}', '{student.password}'
         print('Student registration unsuccessful')
 
 def enroll(studentId, courseId):
+    """
+    enrolls student to a specific course.
+    creates a new record in the 'Enrollments' table
+    :param studentId: id of the student joining
+    :param courseId: id of the enrolling course
+    :return: none
+    """
     query = f"""
 INSERT INTO Enrollments (StudentId, CourseId)
 VALUES ({studentId}, {courseId})
@@ -72,8 +78,14 @@ def fetch_enrolled_courses_of_student(studentId):
 
     # DELETE METHODS
 def disenroll_from_course(studentId, courseId):
+    """
+    Cancels the enrollment of a student in a course.
+    Deletes the pertaining record from 'Enrollments' table
+    :param studentId: id of the student requesting removal from course.
+    :param courseId: id of the course
+    :return: none
+    """
     query = f"DELETE FROM Enrollments WHERE StudentId={studentId} AND CourseId={courseId}"
-
     try:
         cursor.execute(query)
         conn.commit()
