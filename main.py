@@ -1,22 +1,29 @@
-from student import *
+from fastapi import FastAPI
 import database
 
-def run():
-    database.fetch_and_print_student_list()
-    database.fetch_and_print_course_list()
+app = FastAPI()
 
-    database.enroll(1,2)
+@app.get("/")
+def root():
+    return "App started"
 
-    print("enrolled...")
+# GET
 
-    database.fetch_and_print_enrollments()
+@app.get("/student/details")
+def get_details_of_student(student_id):
+    return database.fetch_details_of_student(student_id)
 
-    database.disenroll_from_course(1,2)
+@app.get("/students/enrolled-in-course/{course_id}")
+def get_students_enrolled_in_course(course_id):
+    return database.fetch_names_of_enrolled_students(course_id)
 
-    database.fetch_and_print_enrollments()
 
+@app.get("/courses")
+def get_all_courses():
+    return database.fetch_all_courses()
 
-    print("disenrolled...")
+@app.get("/courses/enrolled-by-student")
+def get_enrolled_courses(student_id):
+    return database.fetch_enrolled_courses_of_student(student_id)
 
-if __name__ == "__main__":
-    run()
+# POST
