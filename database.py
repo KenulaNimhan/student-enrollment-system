@@ -4,7 +4,8 @@ from dotenv import load_dotenv
 from mssql_python import connect
 
 # OTHER IMPORTS
-# from student import Student
+from student import Student
+from course import Course
 
 # ESTABLISH CONNECTION
 load_dotenv()
@@ -49,46 +50,49 @@ def enroll(studentId, courseId):
         print("Enrollment failed")
 
     # READ METHODS
-def fetch_and_print_student_list():
-    query = "SELECT * FROM Students"
+
+def fetch_all_courses() -> list:
+    query = f"SELECT Subject FROM Courses"
     cursor.execute(query)
     records = cursor.fetchall()
-    print("STUDENTS\n--------")
+    all_courses = []
     for r in records:
-        print(f'id = {r.StudentId} / name = {r.Name} / age = {r.Age} / email = {r.Email} / password = {r.Password}')
+        all_courses.append(r.Subject)
 
-def fetch_and_print_course_list():
-    query = "SELECT * FROM Courses"
+    return all_courses
+
+def fetch_details_of_student(student_id) -> Student:
+    query = f"SELECT * FROM Students WHERE StudentId={student_id}"
     cursor.execute(query)
-    records = cursor.fetchall()
-    print("COURSES\n--------")
-    for r in records:
-        print(f'id = {r.CourseId} / subject = {r.Subject} / tutor = {r.Tutor}')
+    r = cursor.fetchone()
 
-def fetch_and_print_enrollments():
-    query = "SELECT * FROM Enrollments"
-    cursor.execute(query)
-    records = cursor.fetchall()
-    print("ENROLLMENTS\n-----------")
-    for r in records:
-        print(f'{r.StudentId} -> {r.CourseId}')
+    # creating student object form fetched record
+    fetched_student = Student(r.Name, r.Age, r.Email, r.Password)
+    fetched_student.set_studentId(r.StudentId)
 
-def fetch_and_print_enrolled_course_details(studentId):
-    # collecting ids of enrolled courses
+    return fetched_student
+
+def fetch_names_of_enrolled_students(course_id) -> list:
     query = f"""
-    SELECT * FROM Courses
+    SELECT Students.Name FROM Students
     FULL JOIN Enrollments
-    ON Enrollments.CourseId = Courses.CourseId
-    WHERE StudentId={studentId}
+    ON Enrollments.StudentId = Students.StudentId
+    WHERE Enrollments.CourseId={course_id}
     """
-
     cursor.execute(query)
     records = cursor.fetchall()
+    student_names = []
     for r in records:
-        print(f'courseId= {r.CourseId} / subject = {r.Subject} / tutor = {r.Tutor}')
+        student_names.append(r.Name)
 
+    return student_names
 
 def fetch_enrolled_courses_of_student(studentId) -> list:
+    """
+    fetches the enrolled course details from the database given the student id
+    :param studentId: id of the requester
+    :return: list of enrolled courses
+    """
 
     # collecting ids of enrolled courses
     query = f"""
@@ -97,11 +101,12 @@ def fetch_enrolled_courses_of_student(studentId) -> list:
     ON Enrollments.CourseId = Courses.CourseId
     WHERE StudentId={studentId}
     """
-    enrolled_courses = []
+    enrolled_courses: list[Course] = []
     cursor.execute(query)
     records = cursor.fetchall()
     for r in records:
-        enrolled_courses.append(r)
+        course = Course(r.Subject, r.Tutor, r.CourseId)
+        enrolled_courses.append(course)
 
     return enrolled_courses
 
