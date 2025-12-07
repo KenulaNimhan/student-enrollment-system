@@ -50,8 +50,11 @@ def enroll(studentId, courseId):
         print("Enrollment failed")
 
     # READ METHODS
-
 def fetch_all_courses() -> list:
+    """
+    fetches list of all courses from Courses table
+    :return: subject names of all the courses
+    """
     query = f"SELECT Subject FROM Courses"
     cursor.execute(query)
     records = cursor.fetchall()
@@ -62,6 +65,11 @@ def fetch_all_courses() -> list:
     return all_courses
 
 def fetch_details_of_student(student_id) -> Student:
+    """
+    fetch details (name, age, email, password) of student from Student table
+    :param student_id: requesting student
+    :return: requested Student object
+    """
     query = f"SELECT * FROM Students WHERE StudentId={student_id}"
     cursor.execute(query)
     r = cursor.fetchone()
@@ -73,6 +81,10 @@ def fetch_details_of_student(student_id) -> Student:
     return fetched_student
 
 def fetch_names_of_enrolled_students(course_id) -> list:
+    """
+    :param course_id: identifier of the course
+    :return: list of names of students enrolled
+    """
     query = f"""
     SELECT Students.Name FROM Students
     FULL JOIN Enrollments
@@ -111,6 +123,10 @@ def fetch_enrolled_courses_of_student(studentId) -> list:
     return enrolled_courses
 
 def fetch_not_enrolled_courses_of_student(studentId) -> list:
+    """
+    :param studentId: identifier of student
+    :return: list of courses the student is not enrolled in
+    """
 
     # collecting all course ids
     query = "SELECT CourseId FROM Courses"
