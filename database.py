@@ -141,6 +141,17 @@ def fetch_un_enrolled_courses_of_student(studentId) -> list:
 
     return all_courses
 
+def fetch_user(email) -> Student:
+    query = f"SELECT * FROM Students WHERE Email='{email}'"
+    cursor.execute(query)
+    r = cursor.fetchone()
+
+    user = None
+    try:
+        user = Student(r.Name, r.Age, r.Email, r.Password, r.StudentId)
+    except Exception as e:
+        print(str(e))
+    return user
 
     # DELETE METHODS
 def disenroll_from_course(studentId, courseId):
