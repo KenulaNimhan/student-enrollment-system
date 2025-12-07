@@ -58,12 +58,13 @@ def fetch_all_courses() -> list:
     fetches list of all courses from Courses table
     :return: subject names of all the courses
     """
-    query = f"SELECT Subject FROM Courses"
+    query = f"SELECT * FROM Courses"
     cursor.execute(query)
     records = cursor.fetchall()
-    all_courses = []
+    all_courses: list[Course] = []
     for r in records:
-        all_courses.append(r.Subject)
+        n_course = Course(r.Subject, r.Tutor, r.CourseId)
+        all_courses.append(n_course)
 
     return all_courses
 
@@ -109,7 +110,6 @@ def fetch_enrolled_courses_of_student(studentId) -> list:
     :return: list of enrolled courses
     """
 
-    # collecting ids of enrolled courses
     query = f"""
     SELECT Courses.CourseId, Courses.Subject, Courses.Tutor FROM Courses
     FULL JOIN Enrollments
@@ -125,31 +125,19 @@ def fetch_enrolled_courses_of_student(studentId) -> list:
 
     return enrolled_courses
 
-def fetch_not_enrolled_courses_of_student(studentId) -> list:
+def fetch_un_enrolled_courses_of_student(studentId) -> list:
     """
     :param studentId: identifier of student
     :return: list of courses the student is not enrolled in
     """
 
-    # collecting all course ids
-    query = "SELECT CourseId FROM Courses"
-    all_courses = []
-    cursor.execute(query)
-    records = cursor.fetchall()
-    for r in records:
-        all_courses.append(r)
+    all_courses: list[Course] = fetch_all_courses()
+    enrolled_courses: list[Course] = fetch_enrolled_courses_of_student(studentId)
 
-    # collecting ids of enrolled courses
-    query = f"SELECT CourseId FROM Enrollments WHERE StudentId={studentId}"
-    enrolled_courses = []
-    cursor.execute(query)
-    records = cursor.fetchall()
-    for r in records:
-        enrolled_courses.append(r)
-
-    # filtering out un-enrolled courses for the student
-    for id in enrolled_courses:
-        all_courses.remove(id)
+    for course in enrolled_courses:
+        for c in all_courses:
+            if course.courseId == c.courseId:
+                all_courses.remove(c)
 
     return all_courses
 

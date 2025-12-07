@@ -30,6 +30,10 @@ def get_students_enrolled_in_course(course_id: int):
 def get_enrolled_courses(student_id: int):
     return database.fetch_enrolled_courses_of_student(student_id)
 
+@app.get("/unenrolled-courses")
+def get_unenrolled_courses(student_id: int):
+    return database.fetch_un_enrolled_courses_of_student(student_id)
+
 # POST
 
 @app.post("/register-student")
@@ -54,11 +58,15 @@ def enroll(request: CourseReq):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+    return "Enrollment Successful"
+
 # DELETE
 
 @app.delete("/disenroll")
-def remove_student_from_course(request: CourseReq):
+def disenroll(request: CourseReq):
     try:
         database.disenroll_from_course(request.student_id, request.course_id)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+    return "Removed from course success"
