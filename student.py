@@ -8,7 +8,7 @@ class Student:
     # constructor
     def __init__(self, name, age=None, email=None, password=None, studentId=None):
         self.studentId = studentId
-        self.name = name
+        self.name = name.capitalize()
         self.age = age
         self.email = email
         self.password = password
