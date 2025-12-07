@@ -79,7 +79,7 @@ def fetch_details_of_student(student_id) -> Student:
 
     # creating student object form fetched record
     fetched_student = Student(r.Name, r.Age, r.Email, r.Password)
-    fetched_student.set_studentId(r.StudentId)
+    fetched_student.set_student_id(r.StudentId)
 
     return fetched_student
 

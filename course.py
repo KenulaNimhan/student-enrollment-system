@@ -1,6 +1,6 @@
 class Course:
 
-    # define constructor
+    # constructor
     def __init__(self, subject, tutor, courseId=None):
         self.courseId = courseId
         self.subject = subject
