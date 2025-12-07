@@ -1,7 +1,7 @@
 # IMPORTS
 from os import getenv
 from dotenv import load_dotenv
-from mssql_python import connect
+from mssql_python import connect, DatabaseError
 
 # OTHER IMPORTS
 from student import Student
@@ -28,8 +28,10 @@ def register_student(student):
     try:
         cursor.execute(query)
         conn.commit()
-    except Exception:
-        print("Student registration unsuccessful")
+    except DatabaseError as e:
+        cursor.rollback()
+        raise Exception("Database Error"+str(e))
+
 
 def enroll(studentId, courseId):
     """
@@ -46,8 +48,9 @@ def enroll(studentId, courseId):
     try:
         cursor.execute(query)
         conn.commit()
-    except Exception:
-        print("Enrollment failed")
+    except DatabaseError as e:
+        cursor.rollback()
+        raise Exception("Database Error" + str(e))
 
     # READ METHODS
 def fetch_all_courses() -> list:
@@ -164,5 +167,6 @@ def disenroll_from_course(studentId, courseId):
     try:
         cursor.execute(query)
         conn.commit()
-    except Exception:
-        print("Operation unsuccessful")
+    except DatabaseError as e:
+        cursor.rollback()
+        raise Exception("Database Error" + str(e))
