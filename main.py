@@ -1,4 +1,6 @@
 from fastapi import FastAPI, HTTPException
+from starlette.middleware.cors import CORSMiddleware
+
 import database
 from database import fetch_user
 from requestDTO.login_request import LoginReq
@@ -7,6 +9,16 @@ from requestDTO.register_request import RegisterReq
 from requestDTO.course_request import CourseReq
 
 app = FastAPI()
+
+origins = ["http://localhost:5173","http://127.0.0.1:5173"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = origins,
+    allow_credentials = True,
+    allow_methods = ["*"],
+    allow_headers = ["*"]
+)
 
 @app.get("/")
 def root():
@@ -45,13 +57,9 @@ def get_password(email: str):
 @app.post("/login")
 def login(request: LoginReq):
     user = fetch_user(request.email)
-    if user is None:
-        return HTTPException(status_code=400, detail="invalid email")
-    elif user.password == request.password:
-        user.password = None
-        return user
-    else:
-        return "invalid password"
+    if user is None or user.password != request.password:
+        raise HTTPException(status_code=400, detail="invalid email or password")
+    return user.studentId
 
 
 @app.post("/register-student")
@@ -63,17 +71,18 @@ def register_student(request: RegisterReq):
         new_student.set_password(request.password)
         database.register_student(new_student)
     except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail="invalid data. please try again")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str("registration unsuccessful. try again"))
 
-    return new_student
+    return "registration successful. please login."
 
 @app.post("/enroll")
 def enroll(request: CourseReq):
     try:
         database.enroll(request.student_id, request.course_id)
     except Exception as e:
+        print(str(e))
         raise HTTPException(status_code=500, detail=str(e))
 
     return "Enrollment Successful"
