@@ -70,9 +70,9 @@ def register_student(request: RegisterReq):
         new_student.set_email(request.email)
         new_student.set_password(request.password)
         database.register_student(new_student)
-    except ValueError as e:
+    except ValueError:
         raise HTTPException(status_code=400, detail="invalid data. please try again")
-    except Exception as e:
+    except Exception:
         raise HTTPException(status_code=500, detail=str("registration unsuccessful. try again"))
 
     return "registration successful. please login."
