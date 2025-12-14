@@ -1,0 +1,52 @@
+.dashboardContainer {
+    width: 100vw;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.dashboardContainer header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboardContainer header h2 {
+    margin: 1em 0 1em 1em;
+}
+
+.dashboardContainer header button {
+    color: white;
+    border: none;
+    height: 100%;
+    padding: 0 1.5em;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.nonActiveBtn:hover {
+    cursor: pointer;
+    background-color: var(--dark);
+    opacity: 0.8;
+}
+
+.nonActiveBtn {
+    background-color: var(--darkFade);
+
+}
+
+.activeBtn {
+    background-color: var(--dark);
+}
+
+.signOutBtn {
+    background-color: var(--darkFade);
+}
+
+.signOutBtn:hover {
+    cursor: pointer;
+    background-color: rgba(195, 42, 42, 0.808);
+}

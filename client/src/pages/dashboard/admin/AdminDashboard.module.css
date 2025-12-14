@@ -1,0 +1,44 @@
+.dashboardContainer {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.dashboardContainer header {
+    width: 100%;
+    background-color: white;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}
+
+.dashboardContainer header button {
+    border: 1px solid var(--dark);
+    border-radius: 0.5em;
+    padding: 0.5em;
+    background-color: transparent;
+    font-weight: 600;
+}
+
+.dashboardContainer header button:hover {
+    cursor: pointer;
+    background-color: var(--dark);
+    color: white;
+}
+
+.dashboardContainer h3 {
+    margin-top: 3.5em;
+    padding: 1em;
+}
+
+.courseContainer {
+    margin: auto;
+    width: 98%;
+    border-top: 1px solid black;
+    display: flex;
+    gap: 3em;
+    padding: 2em;
+    flex-flow: wrap;
+}

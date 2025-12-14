@@ -1,0 +1,53 @@
+.formContainer {
+    margin-top: 0.5em;
+    text-align: center;
+}
+
+.formContainer > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5em;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0.5em;
+    padding: 3em 0;
+
+}
+
+.formContainer > form > input {
+    width: 80%;
+    border: none;
+    padding: 1em;
+    border-radius: 0.5em;
+    background-color: var(--light);
+}
+
+.formContainer button {
+    padding: 0.8em 1.5em;
+    border: 2px solid var(--darkFade);
+    border-radius: 0.5em;
+    color: var(--dark);
+
+    transition: 0.1s ease-in-out;
+}
+
+.formContainer button:hover {
+    cursor: pointer;
+    background-color: var(--dark);
+    color: white;
+}
+
+.formContainer form span {
+    color:var(--dark);
+    font-style: italic;
+    font-size: 0.8em;
+}
+
+.nonVisible {
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
+}
+

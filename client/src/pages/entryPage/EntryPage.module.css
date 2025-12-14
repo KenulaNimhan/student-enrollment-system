@@ -1,0 +1,55 @@
+.container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4em 0;
+}
+
+.container h1 {
+    color: white;
+}
+
+.formWrapper {
+    width: 80%;
+    max-width: 500px;
+}
+
+.selectionHeader {
+    margin-top: 5em;
+    background-color: var(--darkFade);
+    border-radius: 0.5em;
+}
+
+.registerBtn, .loginBtn {
+    width: 50%;
+    padding: 1em;
+    border: none;
+    font-size: 1em;
+    background: transparent;
+    color: var(--whiteFade);
+    font-weight: 600;
+    transition: 0.2s ease-in-out;
+}
+
+.registerBtn {
+    border-bottom-left-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+}
+
+.loginBtn {
+    border-bottom-right-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+}
+
+.activeBtn {
+    color: white;
+    background-color: var(--dark);
+}
+
+.nonActiveBtn:hover {
+    background-color: rgba(51, 51, 51,0.65);
+    cursor: pointer;
+}
+

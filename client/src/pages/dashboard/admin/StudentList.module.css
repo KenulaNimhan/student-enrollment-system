@@ -1,0 +1,36 @@
+.studentListContainer {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    backdrop-filter: blur(5px);
+    top: 0;
+    z-index: 500;
+}
+
+.header {
+    margin-bottom: 0.5em
+}
+
+.header img:hover {
+    cursor: pointer;
+}
+
+.listWrapper {
+    border: 2px solid var(--dark);
+    border-radius: 0.5em;
+    padding: 2em;
+    margin: auto;
+    margin-top: 5em;
+    width: 90%;
+    max-width: 600px;
+    background-color: white;
+}
+
+.listWrapper h2 {
+    font-size: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+.listWrapper p {
+    margin-bottom: 0.5em;
+}
