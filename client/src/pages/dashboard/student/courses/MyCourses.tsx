@@ -13,7 +13,7 @@ export const MyCourses = ({ studentId }: Props) => {
 
   useEffect(() => {
     fetchMyCourses(studentId, setMyCourses);
-  }, []);
+  }, [myCourses.length]);
 
   return (
     <div className={styles.courseContainer}>
