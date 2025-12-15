@@ -13,9 +13,9 @@ This codebase contains both the frontend and backend of a student enrollment sys
 
 ## Requirements
 
-+ python
-+ npm
-+ MS SQL or MySQL
++ Python 3.10+
++ Node.js 18+
++ MS SQL 2019+ _or_ MySQL 8.0+
 
 ## Configure Database
 
@@ -24,6 +24,9 @@ Create and populate the database by executing the following files in order,
 1. [create.sql](schema/create.sql) - create the database
 2. [schema.sql](schema/schema.sql) - create the tables in the database
 3. [populate.sql](schema/populate.sql) - add data to the tables
+
+>[!NOTE]
+>The above schema is defined specifically for **MS SQL**. Slight variations may be needed if you are using a different type of database. Make sure to make the required changes to the schema before execution.
 
 ## Run Server
 In the `...\server` directory, run the following commands,
@@ -50,10 +53,9 @@ In the `...\client`  directory, run the following commands,
 npm install
 npm run dev
 ```
-Make sure the frontend runs on port **5173** as that the is port configured in the backend to support CORS. If not, you can do one of the following,
-
-+ change the configuration of the frontend to run on port 5173.
-+ add the correct localhost url into _origins_ array in [main.py](server/main.py).
-
-<img width="712" height="82" alt="Screenshot 2025-12-15 142057" src="https://github.com/user-attachments/assets/f6da9f15-bb62-49d0-8fc6-61e27296101e" />
+>[!NOTE]
+>PORT **5173** is the configured PORT in the backend to support CORS. If your localhost PORT is different you can do ***one of the following***,
+>+ change the configuration of the frontend to run on port 5173.
+>+ add the correct localhost url into _origins_ array in [main.py](server/main.py).
+><img width="712" height="82" alt="Screenshot 2025-12-15 142057" src="https://github.com/user-attachments/assets/f6da9f15-bb62-49d0-8fc6-61e27296101e" />
 
