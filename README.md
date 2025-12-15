@@ -47,7 +47,7 @@ pip install -r requirements.txt
 uvicorn main:app
 ```
 >[!NOTE]
->Make sure the backend is running on PORT 8000. If not do ***one of the following***,
+>Make sure the backend server is running on PORT 8000. If not, do ***one of the following***,
 >+ configure the backend to run on port 8000.
 >+ change the PORT in the server url in [callers.ts](client/callers.ts).
 ><img width="437" height="68" alt="Screenshot 2025-12-15 161100" src="https://github.com/user-attachments/assets/9e07e314-8628-4c40-b37b-fa1eaf50a83e" />
