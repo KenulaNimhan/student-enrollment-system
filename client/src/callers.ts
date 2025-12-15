@@ -1,5 +1,7 @@
 import type { EnrollReq, Course } from "./types";
 
+const SERVER_URL = "http://localhost:8000/";
+
 
 // calls the api to enroll a student in a course
 export const enroll = async (courseId: number, studentId: string) => {
@@ -10,7 +12,7 @@ export const enroll = async (courseId: number, studentId: string) => {
 
   console.log(request);
 
-  const url = "http://localhost:8000/enroll";
+  const url = `${SERVER_URL}enroll`;
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -38,7 +40,7 @@ export const disenroll = async (courseId: number, studentId: string) => {
 
   console.log(request);
 
-  const url = "http://localhost:8000/disenroll";
+  const url = `${SERVER_URL}disenroll`;
   try {
     const response = await fetch(url, {
       method: "DELETE",
@@ -59,7 +61,7 @@ export const disenroll = async (courseId: number, studentId: string) => {
 
 // calls the api to fetch list of students enrolled in a course
 export const fetchStudentList = async (id: number, setter: React.Dispatch<React.SetStateAction<string[]>>) => {
-  const url = `http://localhost:8000/course-students?course_id=${id}`;
+  const url = `${SERVER_URL}course-students?course_id=${id}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -75,7 +77,7 @@ export const fetchStudentList = async (id: number, setter: React.Dispatch<React.
 
 // calls the api to fetch a list of all courses
 export const fetchCourses = async (setter: React.Dispatch<React.SetStateAction<Course[]>>) => {
-    const url = "http://localhost:8000/all-courses";
+    const url = `${SERVER_URL}all-courses`;
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -91,7 +93,7 @@ export const fetchCourses = async (setter: React.Dispatch<React.SetStateAction<C
 
 // calls the api to fetch list of enrolled courses of a student
 export const fetchMyCourses = async (id: string, setter: React.Dispatch<React.SetStateAction<Course[]>>) => {
-      const url = `http://localhost:8000/enrolled-courses?student_id=${id}`;
+      const url = `${SERVER_URL}enrolled-courses?student_id=${id}`;
       try {
         const response = await fetch(url);
 
@@ -108,7 +110,7 @@ export const fetchMyCourses = async (id: string, setter: React.Dispatch<React.Se
 
 // calls the api to fetch all unenrolled courses of a student
 export const fetchOtherCourses = async (id: string, setter: React.Dispatch<React.SetStateAction<Course[]>>) => {
-    const url = `http://localhost:8000/unenrolled-courses?student_id=${id}`;
+    const url = `${SERVER_URL}unenrolled-courses?student_id=${id}`;
     try {
         const response = await fetch(url);
 
