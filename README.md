@@ -13,9 +13,9 @@ This codebase contains both the frontend and backend of a student enrollment sys
 
 ## Requirements
 
-+ Python 3.10+
-+ Node.js 18+
-+ MS SQL 2019+ _or_ MySQL 8.0+
++ Python _3.10+_
++ Node.js _18+_
++ MS SQL _2019+_ ***or*** MySQL _8.0+_
 
 ## Configure Database
 
@@ -46,6 +46,12 @@ source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn main:app
 ```
+>[!NOTE]
+>Make sure the backend is running on PORT 8000. If not do ***one of the following***,
+>+ configure the backend to run on port 8000.
+>+ change the PORT in the server url in [callers.ts](client/callers.ts).
+><img width="437" height="68" alt="Screenshot 2025-12-15 161100" src="https://github.com/user-attachments/assets/9e07e314-8628-4c40-b37b-fa1eaf50a83e" />
+ 
 
 ## Run Frontend
 In the `...\client`  directory, run the following commands,
@@ -55,7 +61,7 @@ npm run dev
 ```
 >[!NOTE]
 >PORT **5173** is the configured PORT in the backend to support CORS. If your localhost PORT is different you can do ***one of the following***,
->+ change the configuration of the frontend to run on port 5173.
+>+ configure of the frontend to run on port 5173.
 >+ add the correct localhost url into _origins_ array in [main.py](server/main.py).
 ><img width="712" height="82" alt="Screenshot 2025-12-15 142057" src="https://github.com/user-attachments/assets/f6da9f15-bb62-49d0-8fc6-61e27296101e" />
 
